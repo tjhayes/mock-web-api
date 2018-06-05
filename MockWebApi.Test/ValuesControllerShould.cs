@@ -1,3 +1,4 @@
+using FakeDb;
 using MockWebApi.Controllers;
 using System;
 using Xunit;
@@ -8,9 +9,7 @@ namespace MockWebApi.Test
     {
         [Theory]
         [Trait("Category", "Controller")]
-        [InlineData(1, "value #1" )]
-        [InlineData(5, "value #5" )]
-        [InlineData(100, "value #100" )]
+        [ClassData(typeof(Db))]
         public void GetById(int num, string expectedResult)
         {
             // Arrange

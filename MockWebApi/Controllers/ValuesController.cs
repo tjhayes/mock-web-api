@@ -20,7 +20,7 @@ namespace MockWebApi.Controllers
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            return "value #"+id;
+            return id.ToString();
         }
 
         // POST api/values
