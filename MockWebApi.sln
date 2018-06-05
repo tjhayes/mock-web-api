@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
@@ -23,3 +24,48 @@ Global
 		SolutionGuid = {5B4E9748-D9E0-436D-8356-F3F52E62B67D}
 	EndGlobalSection
 EndGlobal
+=======
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2043
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MockWebApi", "MockWebApi\MockWebApi.csproj", "{199C09D8-02C8-4851-81CC-CB21345EDACA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MockWebApi.Test", "MockWebApi.Test\MockWebApi.Test.csproj", "{001CC18B-5344-4F2B-BB7B-4AEA0F1A1B7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FakeDb", "FakeDb\FakeDb.csproj", "{02BF03D1-6746-4AA7-9E7C-1416421F9B80}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{EE1AC66D-C77B-47AA-8A63-A32140B18767}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{199C09D8-02C8-4851-81CC-CB21345EDACA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{199C09D8-02C8-4851-81CC-CB21345EDACA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{199C09D8-02C8-4851-81CC-CB21345EDACA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{199C09D8-02C8-4851-81CC-CB21345EDACA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{001CC18B-5344-4F2B-BB7B-4AEA0F1A1B7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{001CC18B-5344-4F2B-BB7B-4AEA0F1A1B7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{001CC18B-5344-4F2B-BB7B-4AEA0F1A1B7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{001CC18B-5344-4F2B-BB7B-4AEA0F1A1B7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02BF03D1-6746-4AA7-9E7C-1416421F9B80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02BF03D1-6746-4AA7-9E7C-1416421F9B80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02BF03D1-6746-4AA7-9E7C-1416421F9B80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02BF03D1-6746-4AA7-9E7C-1416421F9B80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE1AC66D-C77B-47AA-8A63-A32140B18767}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE1AC66D-C77B-47AA-8A63-A32140B18767}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE1AC66D-C77B-47AA-8A63-A32140B18767}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE1AC66D-C77B-47AA-8A63-A32140B18767}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5B4E9748-D9E0-436D-8356-F3F52E62B67D}
+	EndGlobalSection
+EndGlobal
+>>>>>>> Stashed changes
