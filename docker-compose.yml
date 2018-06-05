@@ -1,0 +1,12 @@
+version: "3"
+services:
+  api:
+    image: docker-api
+    networks:
+      - net
+    ports:
+      - "9000:80"
+    deploy:
+      replicas: 2
+networks:
+  net:
