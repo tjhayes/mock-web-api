@@ -1,13 +1,17 @@
-FROM microsoft/aspnetcore-build:2.0
+FROM microsoft/aspnetcore-build:2.0 AS build
 
 WORKDIR /app
-# copy everything from project folder into container
+
+COPY ./MockWebApi.csproj .
+RUN dotnet restore
 COPY ./ .
 
-# package restore --
-RUN dotnet restore \
-&& dotnet build \
+RUN dotnet build --no-restore \
 && dotnet publish -o ./out
+
+FROM microsoft/aspnetcore:2.0 AS runtime
+WORKDIR /app
+COPY --from=build /app/out/ .
 
 WORKDIR /app/out
 
