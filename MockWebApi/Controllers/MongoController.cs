@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Authentication;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,12 +18,20 @@ namespace MockWebApi.Controllers
 
         public MongoController()
         {
-            _repo = new UserRepository("mongodb://localhost", "usersdb", "users");
+            string connectionString =
+              @"mongodb://cameron-wags:rp7KMfeoIp0KgM7dMMpnZDF9Cmtde0PIlQAQ9pdrpZZaZdO9Pqt9mk8VXl3upDpp2pyrzajfNvOm2JZtqfOzkQ==@cameron-wags.documents.azure.com:10255/?ssl=true&replicaSet=globaldb";
+            MongoClientSettings settings = MongoClientSettings.FromUrl(
+              new MongoUrl(connectionString)
+            );
+            settings.SslSettings =
+              new SslSettings() { EnabledSslProtocols = SslProtocols.Tls12 };
+            IMongoClient mongoClient = new MongoClient(settings);
+            _repo = new UserRepository(mongoClient, "userdb", "users");
         }
 
-        //public MongoController(string mongoDbConnectionString, string databaseName, string usersTableName)
+        //public MongoController(IMongoClient mongoClient, string databaseName, string usersTableName)
         //{
-        //    _repo = new UserRepository(mongoDbConnectionString, databaseName, usersTableName);
+        //    _repo = new UserRepository(mongoClient, databaseName, usersTableName);
         //}
 
         [HttpGet]

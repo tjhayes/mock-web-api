@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text;
 using MongoDB.Bson.Serialization.Attributes;
@@ -11,6 +12,7 @@ namespace MongoDA
     {
         [BsonId]
         [DataMember(Name = "userId")]
+        [Required]
         public Guid UserId { get; set; }
         [DataMember(Name = "location")]
         public string Location { get; set; }
@@ -21,7 +23,7 @@ namespace MongoDA
         [DataMember(Name = "name")]
         public Name Name { get; set; }
         [DataMember(Name = "gender")]
-        public char Gender { get; set; }
+        public string Gender { get; set; }
         [DataMember(Name = "type")]
         public string Type { get; set; }
     }

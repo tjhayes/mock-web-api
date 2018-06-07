@@ -10,10 +10,9 @@ namespace MongoDA
     {
         private readonly IMongoCollection<User> _users;
 
-        public UserRepository(string mongoDbConnectionString, string databaseName, string usersTableName)
+        public UserRepository(IMongoClient mongoClient, string databaseName, string usersTableName)
         {
-            MongoClient client = new MongoClient(mongoDbConnectionString);
-            IMongoDatabase db = client.GetDatabase(databaseName);
+            IMongoDatabase db = mongoClient.GetDatabase(databaseName);
             _users = db.GetCollection<User>(usersTableName);
         }
 
