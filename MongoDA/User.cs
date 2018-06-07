@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
 using MongoDB.Bson.Serialization.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace MongoDA
 {
@@ -30,12 +31,20 @@ namespace MongoDA
     public class Name
     {
         [BsonId]
+        [BsonRequired]
+        [Required]
+        
         [DataMember(Name = "nameId")]
         public Guid NameId { get; set; }
+        [BsonRequired]
+        [Required]
         [DataMember(Name = "first")]
         public string First { get; set; }
+        [BsonRequired]
         [DataMember(Name = "middle")]
         public string Middle { get; set; }
+        [BsonRequired]
+        [Required]
         [DataMember(Name = "last")]
         public string Last { get; set; }
     }
