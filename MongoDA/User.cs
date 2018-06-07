@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text;
 using MongoDB.Bson.Serialization.Attributes;
@@ -11,18 +12,37 @@ namespace MongoDA
     {
         [BsonId]
         [DataMember(Name = "userId")]
+        [Required (ErrorMessage = "User Id is required.")]
         public Guid UserId { get; set; }
+
         [DataMember(Name = "location")]
+        [Required (ErrorMessage = "Location is required.")]
+        [StringLength(maximumLength: 32, MinimumLength = 0)]
         public string Location { get; set; }
+
         [DataMember(Name = "address")]
+        [Required (ErrorMessage = "Address is required.")]
         public Address Address { get; set; }
+
         [DataMember(Name = "email")]
+        [Required (ErrorMessage = "Email is required.")]
+        [EmailAddress (ErrorMessage = "Invalid email format.")]
+        [MaxLength(
+            254,
+            ErrorMessage = "Email must be shorter than 255 characters.")]
         public string Email { get; set; }
+
         [DataMember(Name = "name")]
+        [Required (ErrorMessage = "Name is required.")]
         public Name Name { get; set; }
+
         [DataMember(Name = "gender")]
+        [Required (ErrorMessage = "Name is required.")]
         public char Gender { get; set; }
+
         [DataMember(Name = "type")]
+        [Required (ErrorMessage = "Type is required.")]
+        [StringLength(maximumLength: 32, MinimumLength = 0)]
         public string Type { get; set; }
     }
 
