@@ -17,7 +17,7 @@ namespace MongoDA
 
         [DataMember(Name = "location")]
         [Required (ErrorMessage = "Location is required.")]
-        [StringLength(maximumLength: 32, MinimumLength = 0)]
+        [MaxLength(64, ErrorMessage ="Location must be shorter than 64 characters.")]
         public string Location { get; set; }
 
         [DataMember(Name = "address")]
@@ -42,7 +42,7 @@ namespace MongoDA
 
         [DataMember(Name = "type")]
         [Required (ErrorMessage = "Type is required.")]
-        [StringLength(maximumLength: 32, MinimumLength = 0)]
+        [StringLength(maximumLength: 64, MinimumLength = 0)]
         public string Type { get; set; }
     }
 
