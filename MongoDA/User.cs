@@ -33,18 +33,20 @@ namespace MongoDA
         [BsonId]
         [BsonRequired]
         [Required]
-        
         [DataMember(Name = "nameId")]
         public Guid NameId { get; set; }
         [BsonRequired]
         [Required]
         [DataMember(Name = "first")]
+        [MaxLength(20)]
         public string First { get; set; }
         [BsonRequired]
         [DataMember(Name = "middle")]
+        [MaxLength(20)]
         public string Middle { get; set; }
         [BsonRequired]
         [Required]
+        [MaxLength(30)]
         [DataMember(Name = "last")]
         public string Last { get; set; }
     }
