@@ -7,10 +7,10 @@ namespace MockWebApi.Models
 {
     public class MockModel
     {
-        private int[] data;
+        public int data;
         public MockModel()
         {
-            data = new int[10];
+            data = 1;
         }
     }
 }
