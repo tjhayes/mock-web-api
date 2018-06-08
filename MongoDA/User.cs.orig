@@ -7,34 +7,27 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace MongoDA
 {
-    /// <summary>
-    /// User model containing all information for a single user.
-    /// </summary>
-    /// <remarks>
-    /// A user refers to a single person in the Revature Housing system.  Currently, this model
-    /// only represents associates in training.
-    /// </remarks>
     [DataContract]
     public class User
     {
-        /// <value>Unique user id</value>
         [BsonId]
         [DataMember(Name = "userId")]
+<<<<<<< HEAD
         [Required (ErrorMessage = "User Id is required.")]
+=======
+        [Required]
+>>>>>>> develop
         public Guid UserId { get; set; }
 
-        /// <value>Training location for this user</value>
         [DataMember(Name = "location")]
         [Required (ErrorMessage = "Location is required.")]
         [MaxLength(255, ErrorMessage ="Location must be shorter than 256 characters.")]
         public string Location { get; set; }
 
-        /// <value>Address object of user while in the housing system</value>
         [DataMember(Name = "address")]
         [Required (ErrorMessage = "Address is required.")]
         public Address Address { get; set; }
 
-        /// <value>Email address of user</value>
         [DataMember(Name = "email")]
         [Required (ErrorMessage = "Email is required.")]
         [EmailAddress (ErrorMessage = "Invalid email format.")]
@@ -43,17 +36,18 @@ namespace MongoDA
             ErrorMessage = "Email must be shorter than 255 characters.")]
         public string Email { get; set; }
 
-        /// <value>Name object of user</value>
         [DataMember(Name = "name")]
         [Required (ErrorMessage = "Name is required.")]
         public Name Name { get; set; }
 
-        /// <value>Gender of user</value>
         [DataMember(Name = "gender")]
-        [Required (ErrorMessage = "Gender is required.")]
-        public string Gender { get; set; }
+<<<<<<< HEAD
+        [Required (ErrorMessage = "Name is required.")]
+        public char Gender { get; set; }
 
-        /// <value>Type of user; for now, only Associates are implemented.</value>
+=======
+        public string Gender { get; set; }
+>>>>>>> develop
         [DataMember(Name = "type")]
         [Required (ErrorMessage = "Type is required.")]
         [StringLength(maximumLength: 255, MinimumLength = 0, ErrorMessage = "Type must be shorter than 256 characters")]
