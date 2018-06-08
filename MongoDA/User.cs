@@ -38,8 +38,7 @@ namespace MongoDA
 
         [DataMember(Name = "gender")]
         [Required (ErrorMessage = "Name is required.")]
-        public char Gender { get; set; }
-
+        public string Gender { get; set; }
         [DataMember(Name = "type")]
         [Required (ErrorMessage = "Type is required.")]
         [StringLength(maximumLength: 255, MinimumLength = 0, ErrorMessage = "Type must be shorter than 256 characters")]
