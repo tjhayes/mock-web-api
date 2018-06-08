@@ -26,27 +26,40 @@ namespace MongoDA
         [DataMember(Name = "type")]
         public string Type { get; set; }
     }
-
+    /// <summary>
+    /// Name model used by the User model
+    /// Contains all information for a user's name.
+    /// </summary>
+    /// <remarks>
+    /// Refers to the name of the User model of Revature associates. Model includes a First, Last, and Middle name.
+    /// </remarks>
     [DataContract]
     public class Name
     {
+        /// <value> Unique name ID. </value>
         [BsonId]
         [BsonRequired]
         [Required]
         [DataMember(Name = "nameId")]
         public Guid NameId { get; set; }
+
+        /// <value> First name of the User associate. </value>
         [BsonRequired]
         [Required]
         [DataMember(Name = "first")]
-        [MaxLength(20)]
+        [MaxLength(255)]
         public string First { get; set; }
+
+        /// <value> Middle name of the User associate. </value>
         [BsonRequired]
         [DataMember(Name = "middle")]
-        [MaxLength(20)]
+        [MaxLength(255)]
         public string Middle { get; set; }
+
+        /// <value> Last name of the User associate. </value>
         [BsonRequired]
         [Required]
-        [MaxLength(30)]
+        [MaxLength(255)]
         [DataMember(Name = "last")]
         public string Last { get; set; }
     }
