@@ -27,6 +27,7 @@ namespace MongoDA
         [DataMember(Name = "location")]
         [Required (ErrorMessage = "Location is required.")]
         [MaxLength(255, ErrorMessage ="Location must be shorter than 256 characters.")]
+        [RegularExpression("")]
         public string Location { get; set; }
 
         /// <value>Address object of user while in the housing system</value>
