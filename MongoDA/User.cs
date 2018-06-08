@@ -56,7 +56,7 @@ namespace MongoDA
         /// <value>Type of user; for now, only Associates are implemented.</value>
         [DataMember(Name = "type")]
         [Required (ErrorMessage = "Type is required.")]
-        [StringLength(maximumLength: 255, MinimumLength = 0, ErrorMessage = "Type must be shorter than 256 characters")]
+        [StringLength(maximumLength: 255, MinimumLength = 1, ErrorMessage = "Type must be shorter than 256 characters")]
         public string Type { get; set; }
     }
 
