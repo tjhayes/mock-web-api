@@ -72,8 +72,9 @@ namespace MongoDA
         /// <returns>True if the Gender is valid and false otherwise.</returns>
         public Boolean ValidateGender()
         {
-            // TODO: check regex for gender
-            return true;
+            List<string> validGenders = new List<string>() { "M", "F", "MALE", "FEMALE" };
+            if (validGenders.Contains(Gender.ToUpper())) { return true; }
+            else { return false; }
         }
     }
 
@@ -102,7 +103,7 @@ namespace MongoDA
         public Boolean Validate()
         {
             if(NameId == Guid.Empty) { return false; }
-            if(first == null || first == "") { return false; }
+            if(First == null || First == "") { return false; }
             if(Middle == "") { return false; }
             if(Last == null || Last == "") { return false; }
             return true;
@@ -147,6 +148,7 @@ namespace MongoDA
             if(Address2 == "") { return false; }
             if(City == null || City == "") { return false; }
             if(State == null || State == "") { return false; }
+            if(PostalCode == null || PostalCode == "") { return false; }
             if(Country == null || ValidateCountry() == false) { return false; }
             if(Country.ToUpper() == "US" && ValidateAmericanState() == false) { return false; }
             if(Country.ToUpper() == "US" && ValidateAmericanPostalCode() == false) { return false; }
@@ -178,7 +180,62 @@ namespace MongoDA
         /// <returns>True if the state code is valid, and false otherwise.</returns>
         public Boolean ValidateAmericanState()
         {
-            return true;
+            switch (State)
+            {
+                case "AL":
+                case "AK":
+                case "AR":
+                case "AZ":
+                case "CA":
+                case "CO":
+                case "CT":
+                case "DE":
+                case "FL":
+                case "GA":
+                case "HI":
+                case "ID":
+                case "IL":
+                case "IN":
+                case "IA":
+                case "KS":
+                case "KY":
+                case "LA":
+                case "ME":
+                case "MD":
+                case "MA":
+                case "MI":
+                case "MN":
+                case "MS":
+                case "MO":
+                case "MT":
+                case "NE":
+                case "NV":
+                case "NH":
+                case "NJ":
+                case "NM":
+                case "NY":
+                case "NC":
+                case "ND":
+                case "OH":
+                case "OK":
+                case "OR":
+                case "PA":
+                case "RI":
+                case "SC":
+                case "SD":
+                case "TN":
+                case "TX":
+                case "UT":
+                case "VT":
+                case "VA":
+                case "WA":
+                case "WV":
+                case "WI":
+                case "WY":
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         /// <summary>
