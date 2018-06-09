@@ -147,5 +147,58 @@ namespace MockWebApi.UnitTests
             Assert.True(non_us.Validate());
         }
 
+        [Fact]
+        [Trait("Type", "RequiredField")]
+        public void AddressIDRequired()
+        {
+            //Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            //Act
+            us.Address.AddressId = Guid.Empty;
+            non_us.Address.AddressId = Guid.Empty;
+
+            //Assert that fail validation
+            Assert.False(us.Address.Validate());
+            Assert.False(non_us.Address.Validate());
+        }
+
+        [Fact]
+        [Trait("Type", "RequiredField")]
+        public void Address1Required()
+        {
+            //Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            //Act
+            us.Address.Address1 = null;
+            non_us.Address.Address1 = null;
+
+            //Assert fail validation
+            Assert.False(us.Address.Validate());
+            Assert.False(non_us.Address.Validate());
+        }
+
+        [Fact]
+        [Trait("Type", "NotEmptyString")]
+        public void Address1IsNotEmptyString()
+        {
+            //Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            //Act
+            us.Address.Address1 = "";
+            non_us.Address.Address1 = "";
+
+            //Assert fail validation
+            Assert.False(us.Address.Validate());
+            Assert.False(non_us.Address.Validate());
+        }
+
+        [Fact]
+        [Trait(Type)]
     }
 }
