@@ -125,7 +125,7 @@ namespace MockWebApi.UnitTests
             us.Location = "";
             non_us.Location = "";
 
-            // Assert that null Location fails validation
+            // Assert that empty string Location fails validation
             Assert.False(us.Validate());
             Assert.False(non_us.Validate());
         }
@@ -146,6 +146,87 @@ namespace MockWebApi.UnitTests
             Assert.True(us.Validate());
             Assert.True(non_us.Validate());
         }
+
+        [Fact]
+        [Trait("Type", "RequiredField")]
+        public void UserEmailRequired()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Email = null;
+            non_us.Email = null;
+
+            // Assert that null Email fails validation
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
+        }
+
+        [Fact]
+        [Trait("Type", "NotEmptyString")]
+        public void UserEmailNotEmptyString()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Email = "";
+            non_us.Email = "";
+
+            // Assert that empty string Email fails validation
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
+        }
+
+        [Fact]
+        [Trait("Type", "TruePositive")]
+        public void ValidUserEmailPasses()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Email = "1_2-a.b+c@a.b-c";
+            non_us.Email = "a@[123.123.123.123]";
+
+            // Assert that valid emails pass
+            Assert.True(us.Validate());
+            Assert.True(non_us.Validate());
+        }
+
+        [Fact]
+        [Trait("Type", "TrueNegative")]
+        public void InvalidUserEmailFails()
+        {
+            // Arrange
+            User us1 = US_User();
+            User us2 = US_User();
+            User us3 = US_User();
+            User us4 = US_User();
+            User us5 = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us1.Email = "abc";
+            us2.Email = "@domain.com";
+            us3.Email = "my<p>hello</p>my@mail.com";
+            us4.Email = "a@b@c.com";
+            us5.Email = "abc.com";
+            non_us.Email = "a@b.com word";
+
+            // Assert that invalid emails fail
+            Assert.False(us1.Validate());
+            Assert.False(us2.Validate());
+            Assert.False(us3.Validate());
+            Assert.False(us4.Validate());
+            Assert.False(us5.Validate());
+            Assert.False(non_us.Validate());
+        }
+
 
     }
 }
