@@ -276,6 +276,23 @@ namespace MockWebApi.UnitTests
         }
 
         [Fact]
+        [Trait("Type", "NotEmptyString")]
+        public void UserFirstNameNotEmptyString()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Name.First = "";
+            non_us.Name.First = "";
+
+            // Assert that empty string First Name fails validation
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
+        }
+
+        [Fact]
         [Trait("Type", "NotRequiredField")]
         public void UserMiddleNameNotRequired()
         {
@@ -290,6 +307,23 @@ namespace MockWebApi.UnitTests
             // Assert that null Middle Name passes validation
             Assert.True(us.Validate());
             Assert.True(non_us.Validate());
+        }
+
+        [Fact]
+        [Trait("Type", "NotEmptyString")]
+        public void UserMiddleNameNotEmptyString()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Name.Middle = "";
+            non_us.Name.Middle = "";
+
+            // Assert that empty string Middle Name fails validation
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
         }
 
         [Fact]
@@ -309,6 +343,120 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Validate());
         }
 
+        [Fact]
+        [Trait("Type", "NotEmptyString")]
+        public void UserLastNameNotEmptyString()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Name.Last = "";
+            non_us.Name.Last = "";
+
+            // Assert that empty string Last Name fails validation
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
+        }
+
+        [Fact]
+        [Trait("Type", "RequiredField")]
+        public void UserGenderRequired()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Gender = null;
+            non_us.Gender = null;
+
+            // Assert that null Gender fails validation
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
+        }
+
+        [Theory]
+        [Trait("Type", "TruePositive")]
+        [InlineData("M")]
+        [InlineData("m")]
+        [InlineData("male")]
+        [InlineData("MALE")]
+        [InlineData("Male")]
+        [InlineData("F")]
+        [InlineData("f")]
+        [InlineData("female")]
+        [InlineData("FEMALE")]
+        [InlineData("Female")]
+        public void ValidGenderPasses(string gender)
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Gender = gender;
+            non_us.Gender = gender;
+
+            // Assert that valid Gender passes
+            Assert.True(us.Validate());
+            Assert.True(non_us.Validate());
+        }
+
+        [Theory]
+        [Trait("Type", "TrueNegative")]
+        [InlineData("X")]
+        [InlineData("")]
+        [InlineData("12345")]
+        public void InvalidGenderFails(string gender)
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Gender = gender;
+            non_us.Gender = gender;
+
+            // Assert that invalid Gender fails
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
+        }
+
+        [Fact]
+        [Trait("Type", "RequiredField")]
+        public void UserTypeRequired()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Type = null;
+            non_us.Type = null;
+
+            // Assert that empty Type fails validation
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
+        }
+
+        [Fact]
+        [Trait("Type", "NotEmptyString")]
+        public void UserTypeNotEmptyString()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Type = "";
+            non_us.Type = "";
+
+            // Assert that empty string Type fails validation
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
+        }
 
     }
 }
