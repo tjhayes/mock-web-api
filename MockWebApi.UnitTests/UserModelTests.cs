@@ -224,6 +224,91 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Validate());
         }
 
+        [Fact]
+        [Trait("Type", "RequiredField")]
+        public void UserNameRequired()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Name = null;
+            non_us.Name = null;
+
+            // Assert that null Name fails validation
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
+        }
+
+        [Fact]
+        [Trait("Type", "RequiredField")]
+        public void UserNameIdRequired()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Name.NameId = Guid.Empty;
+            non_us.Name.NameId = Guid.Empty;
+
+            // Assert that empty NameId fails validation
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
+        }
+
+        [Fact]
+        [Trait("Type", "RequiredField")]
+        public void UserFirstNameRequired()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Name.First = null;
+            non_us.Name.First = null;
+
+            // Assert that null First Name fails validation
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
+        }
+
+        [Fact]
+        [Trait("Type", "NotRequiredField")]
+        public void UserMiddleNameNotRequired()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Name.Middle = null;
+            non_us.Name.Middle = null;
+
+            // Assert that null Middle Name passes validation
+            Assert.True(us.Validate());
+            Assert.True(non_us.Validate());
+        }
+
+        [Fact]
+        [Trait("Type", "RequiredField")]
+        public void UserLastNameRequired()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Name.Last = null;
+            non_us.Name.Last = null;
+
+            // Assert that null Last Name fails validation
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
+        }
+
 
     }
 }
