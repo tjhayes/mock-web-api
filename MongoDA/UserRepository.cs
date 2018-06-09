@@ -73,10 +73,10 @@ namespace MongoDA
         public void Update(User user)
         {
             var filter = Builders<User>.Filter.Eq(x => x.UserId, user.UserId);
-            var updateAddress = Builders<User>.Update.Set(x => x.Address, user.Address);
-            var updateLocation = Builders<User>.Update.Set(x => x.Location, user.Location);
-            _users.UpdateOneAsync(filter, updateAddress);
-            _users.UpdateOneAsync(filter, updateLocation);
+            var update = Builders<User>.Update
+                .Set(x => x.Address, user.Address)
+                .Set(x => x.Location, user.Location);
+            _users.UpdateOneAsync(filter, update);
         }
 
         /// <summary>
