@@ -690,5 +690,240 @@ namespace MockWebApi.UnitTests
             // Assert that invalid Non-US Country code fails
             Assert.False(non_us.Validate());
         }
+
+        [Fact]
+        [Trait("Type", "RequiredField")]
+        public void AddressIDRequired()
+        {
+            //Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            //Act
+            us.Address.AddressId = Guid.Empty;
+            non_us.Address.AddressId = Guid.Empty;
+
+            //Assert that fail validation
+            Assert.False(us.Address.Validate());
+            Assert.False(non_us.Address.Validate());
+        }
+
+        [Fact]
+        [Trait("Type", "RequiredField")]
+        public void Address1Required()
+        {
+            //Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            //Act
+            us.Address.Address1 = null;
+            non_us.Address.Address1 = null;
+
+            //Assert fail validation
+            Assert.False(us.Address.Validate());
+            Assert.False(non_us.Address.Validate());
+        }
+
+        [Fact]
+        [Trait("Type", "NotEmptyString")]
+        public void Address1IsNotEmptyString()
+        {
+            //Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            //Act
+            us.Address.Address1 = "";
+            non_us.Address.Address1 = "";
+
+            //Assert fail validation
+            Assert.False(us.Address.Validate());
+            Assert.False(non_us.Address.Validate());
+        }
+
+        [Fact]
+        [Trait("Type", "NotRequired")]
+        public void Address2NotRequired()
+        {
+            //Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            //Act
+            us.Address.Address2 = null;
+            non_us.Address.Address2 = null;
+
+            //Assert pass validation
+            Assert.True(us.Address.Validate());
+            Assert.True(non_us.Address.Validate());
+        }
+
+        [Fact]
+        [Trait("Type", "NotEmptyString")]
+        public void Address2NotEmptyString()
+        {
+            //Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            //Act
+            us.Address.Address2 = "";
+            non_us.Address.Address2 = "";
+
+            //Assert fail validation
+            Assert.False(us.Address.Validate());
+            Assert.False(non_us.Address.Validate());
+        }
+
+        [Fact]
+        [Trait("Type", "RequiredField")]
+        public void CityRequired()
+        {
+            //Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            //Act
+            us.Address.City = null;
+            non_us.Address.City = null;
+
+            //Assert fail validation
+            Assert.False(us.Address.Validate());
+            Assert.False(non_us.Address.Validate());
+        }
+
+        [Fact]
+        [Trait("Type", "NotEmptyString")]
+        public void CityNotEmptyString()
+        {
+            //Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            //Act
+            us.Address.City = "";
+            non_us.Address.City = "";
+
+            //Assert fail validation
+            Assert.False(us.Address.Validate());
+            Assert.False(non_us.Address.Validate());
+        }
+
+        [Fact]
+        [Trait("Type", "RequiredField")]
+        public void StateRequired()
+        {
+            //Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            //Act
+            us.Address.State = null;
+            non_us.Address.State = null;
+
+            //Assert fail validation
+            Assert.False(us.Address.Validate());
+            Assert.False(non_us.Address.Validate());
+        }
+
+        [Fact]
+        [Trait("Type", "NotEmptyString")]
+        public void StateNotEmptyString()
+        {
+            //Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            //Act
+            us.Address.State = "";
+            non_us.Address.State = "";
+
+            //Assert fail validation
+            Assert.False(us.Address.Validate());
+            Assert.False(non_us.Address.Validate());
+        }
+
+        [Theory]
+        [Trait("Type", "TruePositive")]
+        [InlineData("KS")]
+        [InlineData("WV")]
+        [InlineData("OK")]
+        [InlineData("TX")]
+        [InlineData("CA")]
+        public void ValidAmericanStatePasses(string state)
+        {
+            //Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            //Act
+            us.Address.State = state;
+            non_us.Address.State = state;
+
+            //Assert pass validation
+            Assert.True(us.Address.Validate());
+            Assert.True(non_us.Address.Validate());
+        }
+
+        [Theory]
+        [Trait("Type", "TruePositive")]
+        [InlineData("Kansas")]
+        [InlineData("Wv")]
+        [InlineData("Canada")]
+        [InlineData("Europe")]
+        [InlineData("I like pie")]
+        public void InValidAmericanStateFails(string state)
+        {
+            //Arrange
+            User us = US_User();
+
+            //Act
+            us.Address.State = state;
+
+            //Assert pass validation
+            Assert.False(us.Address.Validate());
+        }
+
+        [Theory]
+        [Trait("Type", "TruePositive")]
+        [InlineData("55555")]
+        [InlineData("66043")]
+        [InlineData("66048-1234")]
+        [InlineData("66002")]
+        [InlineData("12345-6789")]
+        public void ValidAmericanPostalCodePasses(string zip)
+        {
+            //Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            //Act
+            us.Address.PostalCode = zip;
+            non_us.Address.PostalCode = zip;
+
+            //Assert pass validation
+            Assert.True(us.Address.Validate());
+            Assert.True(non_us.Address.Validate());
+        }
+
+        [Theory]
+        [Trait("Type", "TruePositive")]
+        [InlineData("5555")]
+        [InlineData("66043-")]
+        [InlineData("66048-12")]
+        [InlineData("66002-12345")]
+        [InlineData("123456")]
+        public void InValidAmericanPostalCodeFails(string zip)
+        {
+            //Arrange
+            User us = US_User();
+
+            //Act
+            us.Address.PostalCode = zip;
+
+            //Assert pass validation
+            Assert.False(us.Address.Validate());
+        }
     }
 }
