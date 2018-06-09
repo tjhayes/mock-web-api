@@ -56,6 +56,7 @@ namespace MockWebApi.UnitTests
         }
 
         [Fact]
+        [Trait("Type", "ControlGroup")]
         public void DefaultUserShouldBeInvalid()
         {
             User defaultUser = new User();
@@ -63,15 +64,94 @@ namespace MockWebApi.UnitTests
         }
 
         [Fact]
+        [Trait("Type", "ControlGroup")]
         public void SampleAmericanUserShouldBeValid()
         {
             Assert.True(_validAmericanUser.Validate());
         }
 
         [Fact]
+        [Trait("Type", "ControlGroup")]
         public void SampleNonAmericanUserShouldBeValid()
         {
             Assert.True(_validNonAmericanUser.Validate());
         }
+
+        [Fact]
+        [Trait("Type", "RequiredField")]
+        public void UserIdRequired()
+        {
+            Guid oldId1 = _validAmericanUser.UserId;
+            Guid oldId2 = _validNonAmericanUser.UserId;
+
+            _validAmericanUser.UserId = Guid.Empty;
+            _validNonAmericanUser.UserId = Guid.Empty;
+
+            // Assert that empty Guids fail validation
+            Assert.False(_validAmericanUser.Validate());
+            Assert.False(_validNonAmericanUser.Validate());
+
+            _validAmericanUser.UserId = oldId1;
+            _validNonAmericanUser.UserId = oldId2;
+
+            // Assert that non-empty Guids pass validation
+            Assert.True(_validAmericanUser.Validate());
+            Assert.True(_validNonAmericanUser.Validate());
+        }
+
+        [Fact]
+        [Trait("Type", "RequiredField")]
+        public void UserLocationRequired()
+        {
+            string oldLoc1 = _validAmericanUser.Location;
+            string oldLoc2 = _validNonAmericanUser.Location;
+
+            _validAmericanUser.Location = null;
+            _validNonAmericanUser.Location = null;
+
+            // Assert that null Location fails validation
+            Assert.False(_validAmericanUser.Validate());
+            Assert.False(_validNonAmericanUser.Validate());
+
+            _validAmericanUser.Location = oldLoc1;
+            _validNonAmericanUser.Location = oldLoc2;
+        }
+
+        [Fact]
+        [Trait("Type", "NotEmptyString")]
+        public void UserLocationNotEmptyString()
+        {
+            string oldLoc1 = _validAmericanUser.Location;
+            string oldLoc2 = _validNonAmericanUser.Location;
+
+            _validAmericanUser.Location = "";
+            _validNonAmericanUser.Location = "";
+
+            // Assert that empty string Location fails validation
+            Assert.False(_validAmericanUser.Validate());
+            Assert.False(_validNonAmericanUser.Validate());
+
+            _validAmericanUser.Location = oldLoc1;
+            _validNonAmericanUser.Location = oldLoc2;
+        }
+
+        [Fact]
+        [Trait("Type", "NotRequiredField")]
+        public void UserAddressNotRequired()
+        {
+            Address oldAddress1 = _validAmericanUser.Address;
+            Address oldAddress2 = _validNonAmericanUser.Address;
+
+            _validAmericanUser.Address = null;
+            _validNonAmericanUser.Address = null;
+
+            // Assert that null Address passes validation
+            Assert.True(_validAmericanUser.Validate());
+            Assert.True(_validNonAmericanUser.Validate());
+
+            _validAmericanUser.Address = oldAddress1;
+            _validNonAmericanUser.Address = oldAddress2;
+        }
+
     }
 }
