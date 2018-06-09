@@ -14,30 +14,17 @@ namespace MockWebApi.Controllers
     [Route("api/users")]
     public class MongoController : Controller
     {
-        private readonly UserRepository _repo;
+        private readonly UserContext _context;
 
         public MongoController()
         {
-            string connectionString =
-              @"mongodb://cameron-wags:rp7KMfeoIp0KgM7dMMpnZDF9Cmtde0PIlQAQ9pdrpZZaZdO9Pqt9mk8VXl3upDpp2pyrzajfNvOm2JZtqfOzkQ==@cameron-wags.documents.azure.com:10255/?ssl=true&replicaSet=globaldb";
-            MongoClientSettings settings = MongoClientSettings.FromUrl(
-              new MongoUrl(connectionString)
-            );
-            settings.SslSettings =
-              new SslSettings() { EnabledSslProtocols = SslProtocols.Tls12 };
-            IMongoClient mongoClient = new MongoClient(settings);
-            _repo = new UserRepository(mongoClient, "userdb", "users");
+            _context = new UserContext(new UserRepository());
         }
-
-        //public MongoController(IMongoClient mongoClient, string databaseName, string usersTableName)
-        //{
-        //    _repo = new UserRepository(mongoClient, databaseName, usersTableName);
-        //}
 
         [HttpGet]
         public JsonResult Get()
         {
-            return Json(_repo.Get());
+            return Json(_context.Get());
         }
     }
 }
