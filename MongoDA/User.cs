@@ -6,6 +6,7 @@ using System.Text;
 using MongoDB.Bson.Serialization.Attributes;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using System.Net.Mail;
 
 namespace MongoDA
 {
@@ -45,7 +46,7 @@ namespace MongoDA
             if(UserId == Guid.Empty) { return false; }
             if(Location == null || Location == "") { return false; }
             if(Address != null && Address.Validate() == false) { return false; }
-            if(Email == null || ValidateEmail() == false) { return false; }
+            if(ValidateEmail() == false) { return false; }
             if(Name == null || Name.Validate() == false) { return false; }
             if(Gender == null || ValidateGender() == false) { return false; }
             if(Type == null || Type == "") { return false; }
@@ -54,12 +55,23 @@ namespace MongoDA
         }
 
         /// <summary>
-        /// Validate email with regex.
+        /// Check if Email is null, empty string or an invalid email address.
+        /// If any of those are true, the email is invalid. Otherwise it is valid.
         /// </summary>
         /// <returns>True if the email is valid and false otherwise.</returns>
         public Boolean ValidateEmail()
         {
-            // TODO: check regex for email
+            try
+            {
+                // MailAddress constructor throws an exception if 
+                // Email is null, emptry string or an invalid email address.
+                MailAddress emailAddress = new MailAddress(Email);
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
+
             return true;
         }
 
