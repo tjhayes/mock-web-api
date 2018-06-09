@@ -458,5 +458,130 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Validate());
         }
 
+        [Fact]
+        [Trait("Type", "RequiredField")]
+        public void PostalCodeRequired()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Address.PostalCode = null;
+            non_us.Address.PostalCode = null;
+
+            // Assert that null Postal Code fails validation
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
+        }
+
+        [Fact]
+        [Trait("Type", "NotEmptyString")]
+        public void PostalCodeNotEmptyString()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Address.PostalCode = "";
+            non_us.Address.PostalCode = "";
+
+            // Assert that empty string Postal Code fails validation
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
+        }
+
+        [Fact]
+        [Trait("Type", "RequiredField")]
+        public void CountryRequired()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Address.Country = null;
+            non_us.Address.Country = null;
+
+            // Assert that null Country fails validation
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
+        }
+
+        [Theory]
+        [Trait("Type", "TruePositive")]
+        [InlineData("GB")]
+        [InlineData("ZA")]
+        [InlineData("NL")]
+        [InlineData("BR")]
+        [InlineData("CO")]
+        [InlineData("FR")]
+        public void ValidNonUSCountryCodePasses(string countryCode)
+        {
+            // Arrange
+            User non_us = Non_US_User();
+
+            // Act
+            non_us.Address.Country = countryCode;
+
+            // Assert that valid Country passes
+            Assert.True(non_us.Validate());
+        }
+
+        [Theory]
+        [Trait("Type", "TruePositive")]
+        [InlineData("US")]
+        [InlineData("us")]
+        public void ValidUSCountryCodePasses(string countryCode)
+        {
+            // Arrange
+            User us = US_User();
+
+            // Act
+            us.Address.Country = countryCode;
+
+            // Assert that valid US Country code passes
+            Assert.True(us.Validate());
+        }
+
+        [Theory]
+        [Trait("Type", "TrueNegative")]
+        [InlineData("")]
+        [InlineData("United States")]
+        [InlineData("USA")]
+        public void InvalidUSCountryCodeFails(string countryCode)
+        {
+            // Arrange
+            User us = US_User();
+
+            // Act
+            us.Address.Country = countryCode;
+
+            // Assert that invalid US Country code fails
+            Assert.False(us.Validate());
+        }
+
+        [Theory]
+        [Trait("Type", "TrueNegative")]
+        [InlineData("")]
+        [InlineData("China")]
+        [InlineData("ZZ")]
+        [InlineData("YY")]
+        [InlineData("XX")]
+        [InlineData("A")]
+        [InlineData("ABC")]
+        [InlineData("US")]
+        public void InvalidNonUSCountryCodeFails(string countryCode)
+        {
+            // Arrange
+            User non_us = Non_US_User();
+
+            // Act
+            non_us.Address.Country = countryCode;
+
+            // Assert that invalid Non-US Country code fails
+            Assert.False(non_us.Validate());
+        }
     }
 }
