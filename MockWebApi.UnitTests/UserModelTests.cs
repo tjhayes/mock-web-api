@@ -125,7 +125,7 @@ namespace MockWebApi.UnitTests
             us.Location = "";
             non_us.Location = "";
 
-            // Assert that null Location fails validation
+            // Assert that empty string Location fails validation
             Assert.False(us.Validate());
             Assert.False(non_us.Validate());
         }
@@ -145,6 +145,40 @@ namespace MockWebApi.UnitTests
             // Assert that null Address passes
             Assert.True(us.Validate());
             Assert.True(non_us.Validate());
+        }
+
+        [Fact]
+        [Trait("Type", "RequiredField")]
+        public void UserEmailRequired()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Email = null;
+            non_us.Email = null;
+
+            // Assert that null Email fails validation
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
+        }
+
+        [Fact]
+        [Trait("Type", "NotEmptyString")]
+        public void UserEmailNotEmptyString()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Email = "";
+            non_us.Email = "";
+
+            // Assert that empty string Email fails validation
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
         }
 
         [Fact]
