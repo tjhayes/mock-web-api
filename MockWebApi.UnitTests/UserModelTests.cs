@@ -233,6 +233,75 @@ namespace MockWebApi.UnitTests
         }
 
         [Fact]
-        [Trait(Type)]
+        [Trait("Type", "NotRequired")]
+        public void Address2NotRequired()
+        {
+            //Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            //Act
+            us.Address.Address2 = null;
+            non_us.Address.Address2 = null;
+
+            //Assert pass validation
+            Assert.True(us.Address.Validate());
+            Assert.True(non_us.Address.Validate());
+        }
+
+        [Fact]
+        [Trait("Type", "NotEmptyString")]
+        public void Address2NotEmptyString()
+        {
+            //Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            //Act
+            us.Address.Address2 = "";
+            non_us.Address.Address2 = "";
+
+            //Assert fail validation
+            Assert.False(us.Address.Validate());
+            Assert.False(non_us.Address.Validate());
+        }
+
+        [Fact]
+        [Trait("Type", "RequiredField")]
+        public void CityRequired()
+        {
+            //Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            //Act
+            us.Address.City = null;
+            non_us = null;
+
+            //Assert fail validation
+            Assert.False(us.Address.Validate());
+            Assert.False(non_us.Address.Validate());
+        }
+
+        [Fact]
+        [Trait("Type", "NotEmptyString")]
+        public void CityNotEmptyString()
+        {
+            //Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            //Act
+            us.Address.City = "";
+            non_us.Address.City = "";
+
+            //Assert fail validation
+            Assert.False(us.Address.Validate());
+            Assert.False(non_us.Address.Validate());
+        }
+
+        [Fact]
+        [Trait("Type", "RequiredField")]
+
     }
 }
