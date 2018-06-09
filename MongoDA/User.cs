@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using MongoDB.Bson.Serialization.Attributes;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace MongoDA
 {
@@ -246,7 +247,8 @@ namespace MongoDA
         /// <returns>True if postal code is in a valid format and false otherwise.</returns>
         public Boolean ValidateAmericanPostalCode()
         {
-            return true;
+            Regex regex = new Regex(@"^\d{5}(?:-\d{4})?$");
+            return regex.Match(PostalCode).Success;
         }
     }
 }
