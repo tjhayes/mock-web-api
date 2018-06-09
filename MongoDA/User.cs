@@ -123,22 +123,35 @@ namespace MongoDA
         }
     }
 
+    /// <summary>
+    /// Stores data for an address model.
+    /// </summary>
+    /// <remarks>
+    /// An Address refers to the street, City, and apartment number of a room.
+    /// </remarks>
     [DataContract]
     public class Address
     {
+        /// <value> The unique ID of an address. </value>
         [BsonId]
         [DataMember]
         public Guid AddressId { get; set; }
+        ///<value> The first street and apartment number. </value>
         [DataMember]
         public string Address1 { get; set; }
+        /// <value> The second street and apartment number. </value>
         [DataMember]
-        public string Address2 { get; set; }
+        public string Address2 { get; set; } 
+        /// <value> The city. </value>
         [DataMember]
         public string City { get; set; }
+        /// <value> The state. </value>
         [DataMember]
         public string State { get; set; }
+        /// <value> The zip code.. </value>
         [DataMember]
         public string PostalCode { get; set; }
+        /// <value> The country. </value>
         [DataMember]
         public string Country { get; set; }
 
