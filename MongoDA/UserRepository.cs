@@ -6,7 +6,7 @@ using System.Text;
 
 namespace MongoDA
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly IMongoCollection<User> _users;
 
