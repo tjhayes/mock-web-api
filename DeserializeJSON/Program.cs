@@ -16,6 +16,8 @@ namespace DeserializeJSON
             string jsonStr = System.IO.File.ReadAllText(@"C:\Users\tjhay\MockUsers.json");
             List<User> users = Deserialize<List<User>>(jsonStr);
 
+            context.DeleteAll();
+
             foreach (var user in users)
             {
                 context.Insert(user);

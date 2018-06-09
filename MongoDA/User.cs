@@ -11,20 +11,20 @@ namespace MongoDA
     public class User
     {
         [BsonId]
-        [DataMember(Name = "userId")]
         [Required]
+        [DataMember]
         public Guid UserId { get; set; }
-        [DataMember(Name = "location")]
+        [DataMember]
         public string Location { get; set; }
-        [DataMember(Name = "address")]
+        [DataMember]
         public Address Address { get; set; }
-        [DataMember(Name = "email")]
+        [DataMember]
         public string Email { get; set; }
-        [DataMember(Name = "name")]
+        [DataMember]
         public Name Name { get; set; }
-        [DataMember(Name = "gender")]
+        [DataMember]
         public string Gender { get; set; }
-        [DataMember(Name = "type")]
+        [DataMember]
         public string Type { get; set; }
     }
 
@@ -32,13 +32,13 @@ namespace MongoDA
     public class Name
     {
         [BsonId]
-        [DataMember(Name = "nameId")]
+        [DataMember]
         public Guid NameId { get; set; }
-        [DataMember(Name = "first")]
+        [DataMember]
         public string First { get; set; }
-        [DataMember(Name = "middle")]
+        [DataMember]
         public string Middle { get; set; }
-        [DataMember(Name = "last")]
+        [DataMember]
         public string Last { get; set; }
     }
 
@@ -46,19 +46,19 @@ namespace MongoDA
     public class Address
     {
         [BsonId]
-        [DataMember(Name = "addressId")]
+        [DataMember]
         public Guid AddressId { get; set; }
-        [DataMember(Name = "address1")]
+        [DataMember]
         public string Address1 { get; set; }
-        [DataMember(Name = "address2")]
+        [DataMember]
         public string Address2 { get; set; }
-        [DataMember(Name = "city")]
+        [DataMember]
         public string City { get; set; }
-        [DataMember(Name = "state")]
+        [DataMember]
         public string State { get; set; }
-        [DataMember(Name = "postalCode")]
+        [DataMember]
         public string PostalCode { get; set; }
-        [DataMember(Name = "country")]
+        [DataMember]
         public string Country { get; set; }
     }
 }
