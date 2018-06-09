@@ -1,13 +1,15 @@
 ﻿using MongoDA;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace MockWebApi.UnitTests
 {
     public class UserModelTests
     {
+        /// <summary>
+        /// Generates a sample valid American user
+        /// </summary>
+        /// <returns>A valid user object with an American address</returns>
         public User US_User()
         {
             User validAmericanUser = new User();
@@ -32,6 +34,10 @@ namespace MockWebApi.UnitTests
             return validAmericanUser;
         }
 
+        /// <summary>
+        /// Generates a sample valid non-American user
+        /// </summary>
+        /// <returns>A valid user object with a non-American address</returns>
         public User Non_US_User()
         {
             User validNonAmericanUser = new User();
@@ -57,6 +63,9 @@ namespace MockWebApi.UnitTests
             return validNonAmericanUser;
         }
 
+        /// <summary>
+        /// Test a default user
+        /// </summary>
         [Fact]
         [Trait("Type", "ControlGroup")]
         public void DefaultUserShouldBeInvalid()
@@ -65,6 +74,9 @@ namespace MockWebApi.UnitTests
             Assert.False(defaultUser.Validate());
         }
 
+        /// <summary>
+        /// Test the sample American user
+        /// </summary>
         [Fact]
         [Trait("Type", "ControlGroup")]
         public void SampleAmericanUserShouldBeValid()
@@ -72,6 +84,9 @@ namespace MockWebApi.UnitTests
             Assert.True(US_User().Validate());
         }
 
+        /// <summary>
+        /// Test the sample Non-American user
+        /// </summary>
         [Fact]
         [Trait("Type", "ControlGroup")]
         public void SampleNonAmericanUserShouldBeValid()
@@ -79,6 +94,9 @@ namespace MockWebApi.UnitTests
             Assert.True(Non_US_User().Validate());
         }
 
+        /// <summary>
+        /// Test that UserId is required
+        /// </summary>
         [Fact]
         [Trait("Type", "RequiredField")]
         public void UserIdRequired()
@@ -96,6 +114,9 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that user Location is required
+        /// </summary>
         [Fact]
         [Trait("Type", "RequiredField")]
         public void UserLocationRequired()
@@ -113,6 +134,9 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that user Location isn't an empty string
+        /// </summary>
         [Fact]
         [Trait("Type", "NotEmptyString")]
         public void UserLocationNotEmptyString()
@@ -130,6 +154,9 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that user Address is not required
+        /// </summary>
         [Fact]
         [Trait("Type", "NotRequiredField")]
         public void UserAddressNotRequired()
@@ -147,6 +174,9 @@ namespace MockWebApi.UnitTests
             Assert.True(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that user Email is required
+        /// </summary>
         [Fact]
         [Trait("Type", "RequiredField")]
         public void UserEmailRequired()
@@ -164,6 +194,9 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that user Email can't be an empty string
+        /// </summary>
         [Fact]
         [Trait("Type", "NotEmptyString")]
         public void UserEmailNotEmptyString()
@@ -181,6 +214,10 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that valid email addresses pass the validator
+        /// </summary>
+        /// <param name="email">the email address to test</param>
         [Theory]
         [Trait("Type", "TruePositive")]
         [InlineData("1_2-a.b+c@a.b-c")]
@@ -201,6 +238,10 @@ namespace MockWebApi.UnitTests
             Assert.True(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that invalid email addresses fail
+        /// </summary>
+        /// <param name="email">the email to test</param>
         [Theory]
         [Trait("Type", "TrueNegative")]
         [InlineData("abc")]
@@ -224,6 +265,9 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that user's Name is required
+        /// </summary>
         [Fact]
         [Trait("Type", "RequiredField")]
         public void UserNameRequired()
@@ -241,6 +285,9 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that user's NameId is required
+        /// </summary>
         [Fact]
         [Trait("Type", "RequiredField")]
         public void UserNameIdRequired()
@@ -258,6 +305,9 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that user's First Name is required
+        /// </summary>
         [Fact]
         [Trait("Type", "RequiredField")]
         public void UserFirstNameRequired()
@@ -275,6 +325,9 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that user's First Name isn't an empty string
+        /// </summary>
         [Fact]
         [Trait("Type", "NotEmptyString")]
         public void UserFirstNameNotEmptyString()
@@ -292,6 +345,9 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that user's Middle Name isn't required
+        /// </summary>
         [Fact]
         [Trait("Type", "NotRequiredField")]
         public void UserMiddleNameNotRequired()
@@ -309,6 +365,9 @@ namespace MockWebApi.UnitTests
             Assert.True(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that user's Middle Name isn't an empty string
+        /// </summary>
         [Fact]
         [Trait("Type", "NotEmptyString")]
         public void UserMiddleNameNotEmptyString()
@@ -326,6 +385,9 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that user's Last Name is required
+        /// </summary>
         [Fact]
         [Trait("Type", "RequiredField")]
         public void UserLastNameRequired()
@@ -343,6 +405,9 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that user's Last Name isn't empty string
+        /// </summary>
         [Fact]
         [Trait("Type", "NotEmptyString")]
         public void UserLastNameNotEmptyString()
@@ -360,6 +425,9 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that user's Gender is required
+        /// </summary>
         [Fact]
         [Trait("Type", "RequiredField")]
         public void UserGenderRequired()
@@ -377,6 +445,10 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that valid Genders pass
+        /// </summary>
+        /// <param name="gender">The Gender string to test</param>
         [Theory]
         [Trait("Type", "TruePositive")]
         [InlineData("M")]
@@ -404,6 +476,10 @@ namespace MockWebApi.UnitTests
             Assert.True(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that invalid Genders fail
+        /// </summary>
+        /// <param name="gender">The Gender string to test</param>
         [Theory]
         [Trait("Type", "TrueNegative")]
         [InlineData("X")]
@@ -424,6 +500,9 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that user Type is required
+        /// </summary>
         [Fact]
         [Trait("Type", "RequiredField")]
         public void UserTypeRequired()
@@ -441,6 +520,9 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that user Type isn't an empty string
+        /// </summary>
         [Fact]
         [Trait("Type", "NotEmptyString")]
         public void UserTypeNotEmptyString()
@@ -458,6 +540,9 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that user Postal Code is required
+        /// </summary>
         [Fact]
         [Trait("Type", "RequiredField")]
         public void PostalCodeRequired()
@@ -475,6 +560,9 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that user Postal Code isn't an empty string
+        /// </summary>
         [Fact]
         [Trait("Type", "NotEmptyString")]
         public void PostalCodeNotEmptyString()
@@ -492,6 +580,9 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that user Country is required
+        /// </summary>
         [Fact]
         [Trait("Type", "RequiredField")]
         public void CountryRequired()
@@ -509,6 +600,10 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that valid non-US country codes pass
+        /// </summary>
+        /// <param name="countryCode">The country code to test</param>
         [Theory]
         [Trait("Type", "TruePositive")]
         [InlineData("GB")]
@@ -529,6 +624,10 @@ namespace MockWebApi.UnitTests
             Assert.True(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that valid US country codes pass
+        /// </summary>
+        /// <param name="countryCode">The country code to test</param>
         [Theory]
         [Trait("Type", "TruePositive")]
         [InlineData("US")]
@@ -545,6 +644,10 @@ namespace MockWebApi.UnitTests
             Assert.True(us.Validate());
         }
 
+        /// <summary>
+        /// Test that invalid US country codes fail
+        /// </summary>
+        /// <param name="countryCode">The country code to test</param>
         [Theory]
         [Trait("Type", "TrueNegative")]
         [InlineData("")]
@@ -562,6 +665,10 @@ namespace MockWebApi.UnitTests
             Assert.False(us.Validate());
         }
 
+        /// <summary>
+        /// Test that invalid non-US country codes fail
+        /// </summary>
+        /// <param name="countryCode">The country code to test</param>
         [Theory]
         [Trait("Type", "TrueNegative")]
         [InlineData("")]
