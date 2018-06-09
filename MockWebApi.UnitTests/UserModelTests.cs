@@ -1,13 +1,15 @@
 ﻿using MongoDA;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace MockWebApi.UnitTests
 {
     public class UserModelTests
     {
+        /// <summary>
+        /// Generates a sample valid American user
+        /// </summary>
+        /// <returns>A valid user object with an American address</returns>
         public User US_User()
         {
             User validAmericanUser = new User();
@@ -32,6 +34,10 @@ namespace MockWebApi.UnitTests
             return validAmericanUser;
         }
 
+        /// <summary>
+        /// Generates a sample valid non-American user
+        /// </summary>
+        /// <returns>A valid user object with a non-American address</returns>
         public User Non_US_User()
         {
             User validNonAmericanUser = new User();
@@ -57,6 +63,9 @@ namespace MockWebApi.UnitTests
             return validNonAmericanUser;
         }
 
+        /// <summary>
+        /// Test a default user
+        /// </summary>
         [Fact]
         [Trait("Type", "ControlGroup")]
         public void DefaultUserShouldBeInvalid()
@@ -65,6 +74,9 @@ namespace MockWebApi.UnitTests
             Assert.False(defaultUser.Validate());
         }
 
+        /// <summary>
+        /// Test the sample American user
+        /// </summary>
         [Fact]
         [Trait("Type", "ControlGroup")]
         public void SampleAmericanUserShouldBeValid()
@@ -72,6 +84,9 @@ namespace MockWebApi.UnitTests
             Assert.True(US_User().Validate());
         }
 
+        /// <summary>
+        /// Test the sample Non-American user
+        /// </summary>
         [Fact]
         [Trait("Type", "ControlGroup")]
         public void SampleNonAmericanUserShouldBeValid()
@@ -79,6 +94,9 @@ namespace MockWebApi.UnitTests
             Assert.True(Non_US_User().Validate());
         }
 
+        /// <summary>
+        /// Test that UserId is required
+        /// </summary>
         [Fact]
         [Trait("Type", "RequiredField")]
         public void UserIdRequired()
@@ -96,6 +114,9 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that user Location is required
+        /// </summary>
         [Fact]
         [Trait("Type", "RequiredField")]
         public void UserLocationRequired()
@@ -113,6 +134,9 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that user Location isn't an empty string
+        /// </summary>
         [Fact]
         [Trait("Type", "NotEmptyString")]
         public void UserLocationNotEmptyString()
@@ -130,6 +154,9 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that user Address is not required
+        /// </summary>
         [Fact]
         [Trait("Type", "NotRequiredField")]
         public void UserAddressNotRequired()
@@ -147,6 +174,9 @@ namespace MockWebApi.UnitTests
             Assert.True(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that user Email is required
+        /// </summary>
         [Fact]
         [Trait("Type", "RequiredField")]
         public void UserEmailRequired()
@@ -164,6 +194,9 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that user Email can't be an empty string
+        /// </summary>
         [Fact]
         [Trait("Type", "NotEmptyString")]
         public void UserEmailNotEmptyString()
@@ -181,239 +214,481 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Validate());
         }
 
-        [Fact]
-        [Trait("Type", "RequiredField")]
-        public void AddressIDRequired()
-        {
-            //Arrange
-            User us = US_User();
-            User non_us = Non_US_User();
-
-            //Act
-            us.Address.AddressId = Guid.Empty;
-            non_us.Address.AddressId = Guid.Empty;
-
-            //Assert that fail validation
-            Assert.False(us.Address.Validate());
-            Assert.False(non_us.Address.Validate());
-        }
-
-        [Fact]
-        [Trait("Type", "RequiredField")]
-        public void Address1Required()
-        {
-            //Arrange
-            User us = US_User();
-            User non_us = Non_US_User();
-
-            //Act
-            us.Address.Address1 = null;
-            non_us.Address.Address1 = null;
-
-            //Assert fail validation
-            Assert.False(us.Address.Validate());
-            Assert.False(non_us.Address.Validate());
-        }
-
-        [Fact]
-        [Trait("Type", "NotEmptyString")]
-        public void Address1IsNotEmptyString()
-        {
-            //Arrange
-            User us = US_User();
-            User non_us = Non_US_User();
-
-            //Act
-            us.Address.Address1 = "";
-            non_us.Address.Address1 = "";
-
-            //Assert fail validation
-            Assert.False(us.Address.Validate());
-            Assert.False(non_us.Address.Validate());
-        }
-
-        [Fact]
-        [Trait("Type", "NotRequired")]
-        public void Address2NotRequired()
-        {
-            //Arrange
-            User us = US_User();
-            User non_us = Non_US_User();
-
-            //Act
-            us.Address.Address2 = null;
-            non_us.Address.Address2 = null;
-
-            //Assert pass validation
-            Assert.True(us.Address.Validate());
-            Assert.True(non_us.Address.Validate());
-        }
-
-        [Fact]
-        [Trait("Type", "NotEmptyString")]
-        public void Address2NotEmptyString()
-        {
-            //Arrange
-            User us = US_User();
-            User non_us = Non_US_User();
-
-            //Act
-            us.Address.Address2 = "";
-            non_us.Address.Address2 = "";
-
-            //Assert fail validation
-            Assert.False(us.Address.Validate());
-            Assert.False(non_us.Address.Validate());
-        }
-
-        [Fact]
-        [Trait("Type", "RequiredField")]
-        public void CityRequired()
-        {
-            //Arrange
-            User us = US_User();
-            User non_us = Non_US_User();
-
-            //Act
-            us.Address.City = null;
-            non_us.Address.City = null;
-
-            //Assert fail validation
-            Assert.False(us.Address.Validate());
-            Assert.False(non_us.Address.Validate());
-        }
-
-        [Fact]
-        [Trait("Type", "NotEmptyString")]
-        public void CityNotEmptyString()
-        {
-            //Arrange
-            User us = US_User();
-            User non_us = Non_US_User();
-
-            //Act
-            us.Address.City = "";
-            non_us.Address.City = "";
-
-            //Assert fail validation
-            Assert.False(us.Address.Validate());
-            Assert.False(non_us.Address.Validate());
-        }
-
-        [Fact]
-        [Trait("Type", "RequiredField")]
-        public void StateRequired()
-        {
-            //Arrange
-            User us = US_User();
-            User non_us = Non_US_User();
-
-            //Act
-            us.Address.State = null;
-            non_us.Address.State = null;
-
-            //Assert fail validation
-            Assert.False(us.Address.Validate());
-            Assert.False(non_us.Address.Validate());
-        }
-
-        [Fact]
-        [Trait("Type", "NotEmptyString")]
-        public void StateNotEmptyString()
-        {
-            //Arrange
-            User us = US_User();
-            User non_us = Non_US_User();
-
-            //Act
-            us.Address.State = "";
-            non_us.Address.State = "";
-
-            //Assert fail validation
-            Assert.False(us.Address.Validate());
-            Assert.False(non_us.Address.Validate());
-        }
-
+        /// <summary>
+        /// Test that valid email addresses pass the validator
+        /// </summary>
+        /// <param name="email">the email address to test</param>
         [Theory]
         [Trait("Type", "TruePositive")]
-        [InlineData("KS")]
-        [InlineData("WV")]
-        [InlineData("OK")]
-        [InlineData("TX")]
-        [InlineData("CA")]
-        public void ValidAmericanStatePasses(string state)
+        [InlineData("1_2-a.b+c@a.b-c")]
+        [InlineData("a@[123.123.123.123]")]
+        [InlineData("a@123.123.123.123")]
+        public void ValidUserEmailPasses(string email)
         {
-            //Arrange
+            // Arrange
             User us = US_User();
             User non_us = Non_US_User();
 
-            //Act
-            us.Address.State = state;
-            non_us.Address.State = state;
+            // Act
+            us.Email = email;
+            non_us.Email = email; 
 
-            //Assert pass validation
-            Assert.True(us.Address.Validate());
-            Assert.True(non_us.Address.Validate());
+            // Assert that valid emails pass
+            Assert.True(us.Validate());
+            Assert.True(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that invalid email addresses fail
+        /// </summary>
+        /// <param name="email">the email to test</param>
         [Theory]
-        [Trait("Type", "TruePositive")]
-        [InlineData("Kansas")]
-        [InlineData("Wv")]
-        [InlineData("Canada")]
-        [InlineData("Europe")]
-        [InlineData("I like pie")]
-        public void InValidAmericanStateFails(string state)
+        [Trait("Type", "TrueNegative")]
+        [InlineData("abc")]
+        [InlineData("@domain.com")]
+        [InlineData("my<p>hello</p>my@mail.com")]
+        [InlineData("a@b@c.com")]
+        [InlineData("abc.com")]
+        [InlineData("a@b.com word")]
+        public void InvalidUserEmailFails(string email)
         {
-            //Arrange
+            // Arrange
             User us = US_User();
+            User non_us = US_User();
 
-            //Act
-            us.Address.State = state;
+            // Act
+            us.Email = email;
+            non_us.Email = email;
 
-            //Assert pass validation
-            Assert.False(us.Address.Validate());
+            // Assert that invalid emails fails
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
         }
 
-        [Theory]
-        [Trait("Type", "TruePositive")]
-        [InlineData("55555")]
-        [InlineData("66043")]
-        [InlineData("66048-1234")]
-        [InlineData("66002")]
-        [InlineData("12345-6789")]
-        public void ValidAmericanPostalCodePasses(string zip)
+        /// <summary>
+        /// Test that user's Name is required
+        /// </summary>
+        [Fact]
+        [Trait("Type", "RequiredField")]
+        public void UserNameRequired()
         {
-            //Arrange
+            // Arrange
             User us = US_User();
             User non_us = Non_US_User();
 
-            //Act
-            us.Address.PostalCode = zip;
-            non_us.Address.PostalCode = zip;
+            // Act
+            us.Name = null;
+            non_us.Name = null;
 
-            //Assert pass validation
-            Assert.True(us.Address.Validate());
-            Assert.True(non_us.Address.Validate());
+            // Assert that null Name fails validation
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that user's NameId is required
+        /// </summary>
+        [Fact]
+        [Trait("Type", "RequiredField")]
+        public void UserNameIdRequired()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Name.NameId = Guid.Empty;
+            non_us.Name.NameId = Guid.Empty;
+
+            // Assert that empty NameId fails validation
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
+        }
+
+        /// <summary>
+        /// Test that user's First Name is required
+        /// </summary>
+        [Fact]
+        [Trait("Type", "RequiredField")]
+        public void UserFirstNameRequired()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Name.First = null;
+            non_us.Name.First = null;
+
+            // Assert that null First Name fails validation
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
+        }
+
+        /// <summary>
+        /// Test that user's First Name isn't an empty string
+        /// </summary>
+        [Fact]
+        [Trait("Type", "NotEmptyString")]
+        public void UserFirstNameNotEmptyString()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Name.First = "";
+            non_us.Name.First = "";
+
+            // Assert that empty string First Name fails validation
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
+        }
+
+        /// <summary>
+        /// Test that user's Middle Name isn't required
+        /// </summary>
+        [Fact]
+        [Trait("Type", "NotRequiredField")]
+        public void UserMiddleNameNotRequired()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Name.Middle = null;
+            non_us.Name.Middle = null;
+
+            // Assert that null Middle Name passes validation
+            Assert.True(us.Validate());
+            Assert.True(non_us.Validate());
+        }
+
+        /// <summary>
+        /// Test that user's Middle Name isn't an empty string
+        /// </summary>
+        [Fact]
+        [Trait("Type", "NotEmptyString")]
+        public void UserMiddleNameNotEmptyString()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Name.Middle = "";
+            non_us.Name.Middle = "";
+
+            // Assert that empty string Middle Name fails validation
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
+        }
+
+        /// <summary>
+        /// Test that user's Last Name is required
+        /// </summary>
+        [Fact]
+        [Trait("Type", "RequiredField")]
+        public void UserLastNameRequired()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Name.Last = null;
+            non_us.Name.Last = null;
+
+            // Assert that null Last Name fails validation
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
+        }
+
+        /// <summary>
+        /// Test that user's Last Name isn't empty string
+        /// </summary>
+        [Fact]
+        [Trait("Type", "NotEmptyString")]
+        public void UserLastNameNotEmptyString()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Name.Last = "";
+            non_us.Name.Last = "";
+
+            // Assert that empty string Last Name fails validation
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
+        }
+
+        /// <summary>
+        /// Test that user's Gender is required
+        /// </summary>
+        [Fact]
+        [Trait("Type", "RequiredField")]
+        public void UserGenderRequired()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Gender = null;
+            non_us.Gender = null;
+
+            // Assert that null Gender fails validation
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
+        }
+
+        /// <summary>
+        /// Test that valid Genders pass
+        /// </summary>
+        /// <param name="gender">The Gender string to test</param>
         [Theory]
         [Trait("Type", "TruePositive")]
-        [InlineData("5555")]
-        [InlineData("66043-")]
-        [InlineData("66048-12")]
-        [InlineData("66002-12345")]
-        [InlineData("123456")]
-        public void InValidAmericanPostalCodeFails(string zip)
+        [InlineData("M")]
+        [InlineData("m")]
+        [InlineData("male")]
+        [InlineData("MALE")]
+        [InlineData("Male")]
+        [InlineData("F")]
+        [InlineData("f")]
+        [InlineData("female")]
+        [InlineData("FEMALE")]
+        [InlineData("Female")]
+        public void ValidGenderPasses(string gender)
         {
-            //Arrange
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Gender = gender;
+            non_us.Gender = gender;
+
+            // Assert that valid Gender passes
+            Assert.True(us.Validate());
+            Assert.True(non_us.Validate());
+        }
+
+        /// <summary>
+        /// Test that invalid Genders fail
+        /// </summary>
+        /// <param name="gender">The Gender string to test</param>
+        [Theory]
+        [Trait("Type", "TrueNegative")]
+        [InlineData("X")]
+        [InlineData("")]
+        [InlineData("12345")]
+        public void InvalidGenderFails(string gender)
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Gender = gender;
+            non_us.Gender = gender;
+
+            // Assert that invalid Gender fails
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
+        }
+
+        /// <summary>
+        /// Test that user Type is required
+        /// </summary>
+        [Fact]
+        [Trait("Type", "RequiredField")]
+        public void UserTypeRequired()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Type = null;
+            non_us.Type = null;
+
+            // Assert that empty Type fails validation
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
+        }
+
+        /// <summary>
+        /// Test that user Type isn't an empty string
+        /// </summary>
+        [Fact]
+        [Trait("Type", "NotEmptyString")]
+        public void UserTypeNotEmptyString()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Type = "";
+            non_us.Type = "";
+
+            // Assert that empty string Type fails validation
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
+        }
+
+        /// <summary>
+        /// Test that user Postal Code is required
+        /// </summary>
+        [Fact]
+        [Trait("Type", "RequiredField")]
+        public void PostalCodeRequired()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Address.PostalCode = null;
+            non_us.Address.PostalCode = null;
+
+            // Assert that null Postal Code fails validation
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
+        }
+
+        /// <summary>
+        /// Test that user Postal Code isn't an empty string
+        /// </summary>
+        [Fact]
+        [Trait("Type", "NotEmptyString")]
+        public void PostalCodeNotEmptyString()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Address.PostalCode = "";
+            non_us.Address.PostalCode = "";
+
+            // Assert that empty string Postal Code fails validation
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
+        }
+
+        /// <summary>
+        /// Test that user Country is required
+        /// </summary>
+        [Fact]
+        [Trait("Type", "RequiredField")]
+        public void CountryRequired()
+        {
+            // Arrange
+            User us = US_User();
+            User non_us = Non_US_User();
+
+            // Act
+            us.Address.Country = null;
+            non_us.Address.Country = null;
+
+            // Assert that null Country fails validation
+            Assert.False(us.Validate());
+            Assert.False(non_us.Validate());
+        }
+
+        /// <summary>
+        /// Test that valid non-US country codes pass
+        /// </summary>
+        /// <param name="countryCode">The country code to test</param>
+        [Theory]
+        [Trait("Type", "TruePositive")]
+        [InlineData("GB")]
+        [InlineData("ZA")]
+        [InlineData("NL")]
+        [InlineData("BR")]
+        [InlineData("CO")]
+        [InlineData("FR")]
+        public void ValidNonUSCountryCodePasses(string countryCode)
+        {
+            // Arrange
+            User non_us = Non_US_User();
+
+            // Act
+            non_us.Address.Country = countryCode;
+
+            // Assert that valid Country passes
+            Assert.True(non_us.Validate());
+        }
+
+        /// <summary>
+        /// Test that valid US country codes pass
+        /// </summary>
+        /// <param name="countryCode">The country code to test</param>
+        [Theory]
+        [Trait("Type", "TruePositive")]
+        [InlineData("US")]
+        [InlineData("us")]
+        public void ValidUSCountryCodePasses(string countryCode)
+        {
+            // Arrange
             User us = US_User();
 
-            //Act
-            us.Address.PostalCode = zip;
+            // Act
+            us.Address.Country = countryCode;
 
-            //Assert pass validation
-            Assert.False(us.Address.Validate());
+            // Assert that valid US Country code passes
+            Assert.True(us.Validate());
+        }
+
+        /// <summary>
+        /// Test that invalid US country codes fail
+        /// </summary>
+        /// <param name="countryCode">The country code to test</param>
+        [Theory]
+        [Trait("Type", "TrueNegative")]
+        [InlineData("")]
+        [InlineData("United States")]
+        [InlineData("USA")]
+        public void InvalidUSCountryCodeFails(string countryCode)
+        {
+            // Arrange
+            User us = US_User();
+
+            // Act
+            us.Address.Country = countryCode;
+
+            // Assert that invalid US Country code fails
+            Assert.False(us.Validate());
+        }
+
+        /// <summary>
+        /// Test that invalid non-US country codes fail
+        /// </summary>
+        /// <param name="countryCode">The country code to test</param>
+        [Theory]
+        [Trait("Type", "TrueNegative")]
+        [InlineData("")]
+        [InlineData("China")]
+        [InlineData("ZZ")]
+        [InlineData("YY")]
+        [InlineData("XX")]
+        [InlineData("A")]
+        [InlineData("ABC")]
+        [InlineData("US")]
+        public void InvalidNonUSCountryCodeFails(string countryCode)
+        {
+            // Arrange
+            User non_us = Non_US_User();
+
+            // Act
+            non_us.Address.Country = countryCode;
+
+            // Assert that invalid Non-US Country code fails
+            Assert.False(non_us.Validate());
         }
     }
 }
