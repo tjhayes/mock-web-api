@@ -67,7 +67,7 @@ namespace MongoDA
                 // Email is null, emptry string or an invalid email address.
                 MailAddress emailAddress = new MailAddress(Email);
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 return false;
             }
@@ -195,7 +195,7 @@ namespace MongoDA
         {
             bool validCountry = true;
             try { RegionInfo region = new RegionInfo(Country); }
-            catch(ArgumentException e) { validCountry = false; }
+            catch(ArgumentException) { validCountry = false; }
             return validCountry; 
         }
 
