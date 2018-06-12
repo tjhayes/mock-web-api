@@ -11,7 +11,7 @@ namespace MongoDA
     public interface IUserRepository
     {
         void Insert(User user);
-        IQueryable<User> Get();
+        IEnumerable<User> Get();
         User GetById(Guid id);
         void Update(User user);
         void Delete(Guid id);

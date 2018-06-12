@@ -50,9 +50,9 @@ namespace MongoDA
         /// Get all the users.
         /// </summary>
         /// <returns>All the users.</returns>
-        public IQueryable<User> Get()
+        public IEnumerable<User> Get()
         {
-            return _users.AsQueryable();
+            return _users.AsQueryable().AsEnumerable();
         }
 
         /// <summary>

@@ -16,6 +16,7 @@ namespace MongoDA
         [BsonId]
         [Required]
         [DataMember]
+        [IgnoreDataMember]
         public Guid UserId { get; set; }
         [DataMember]
         public string Location { get; set; }

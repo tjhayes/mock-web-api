@@ -34,7 +34,7 @@ namespace MongoDA
         /// Get all the users.
         /// </summary>
         /// <returns>All the users.</returns>
-        public IQueryable<User> Get()
+        public IEnumerable<User> Get()
         {
             return _userRepository.Get();
         }
