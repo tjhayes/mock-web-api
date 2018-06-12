@@ -691,6 +691,9 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Validate());
         }
 
+        /// <summary>
+        /// Test that Address must have an Id.
+        /// </summary>
         [Fact]
         [Trait("Type", "RequiredField")]
         public void AddressIDRequired()
@@ -708,6 +711,9 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Address.Validate());
         }
 
+        /// <summary>
+        /// Test to ensure that at least one address field is filled in.
+        /// </summary>
         [Fact]
         [Trait("Type", "RequiredField")]
         public void Address1Required()
@@ -725,6 +731,9 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Address.Validate());
         }
 
+        /// <summary>
+        /// Test that the required address is not an empty string.
+        /// </summary>
         [Fact]
         [Trait("Type", "NotEmptyString")]
         public void Address1IsNotEmptyString()
@@ -742,6 +751,9 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Address.Validate());
         }
 
+        /// <summary>
+        /// Test to ensure that a secondary address is not required.
+        /// </summary>
         [Fact]
         [Trait("Type", "NotRequired")]
         public void Address2NotRequired()
@@ -759,6 +771,9 @@ namespace MockWebApi.UnitTests
             Assert.True(non_us.Address.Validate());
         }
 
+        /// <summary>
+        /// Ensure that the secondary address is not an empty string
+        /// </summary>
         [Fact]
         [Trait("Type", "NotEmptyString")]
         public void Address2NotEmptyString()
@@ -776,6 +791,9 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Address.Validate());
         }
 
+        /// <summary>
+        /// Ensure that the city property is required.
+        /// </summary>
         [Fact]
         [Trait("Type", "RequiredField")]
         public void CityRequired()
@@ -793,6 +811,9 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Address.Validate());
         }
 
+        /// <summary>
+        /// Ensure that the city is not an empty string.
+        /// </summary>
         [Fact]
         [Trait("Type", "NotEmptyString")]
         public void CityNotEmptyString()
@@ -810,6 +831,9 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Address.Validate());
         }
 
+        /// <summary>
+        /// Test that state is required.
+        /// </summary>
         [Fact]
         [Trait("Type", "RequiredField")]
         public void StateRequired()
@@ -827,6 +851,9 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Address.Validate());
         }
 
+        /// <summary>
+        /// Test that state is not an empty string.
+        /// </summary>
         [Fact]
         [Trait("Type", "NotEmptyString")]
         public void StateNotEmptyString()
@@ -844,6 +871,10 @@ namespace MockWebApi.UnitTests
             Assert.False(non_us.Address.Validate());
         }
 
+        /// <summary>
+        /// Test that valid state abbreviations pass.
+        /// </summary>
+        /// <param name="state"></param>
         [Theory]
         [Trait("Type", "TruePositive")]
         [InlineData("KS")]
@@ -866,6 +897,10 @@ namespace MockWebApi.UnitTests
             Assert.True(non_us.Address.Validate());
         }
 
+        /// <summary>
+        /// Test that invalid state expressions fail.
+        /// </summary>
+        /// <param name="state"></param>
         [Theory]
         [Trait("Type", "TruePositive")]
         [InlineData("Kansas")]
@@ -885,6 +920,10 @@ namespace MockWebApi.UnitTests
             Assert.False(us.Address.Validate());
         }
 
+        /// <summary>
+        /// Test that only proper postal code formats pass.
+        /// </summary>
+        /// <param name="zip"></param>
         [Theory]
         [Trait("Type", "TruePositive")]
         [InlineData("55555")]
@@ -907,6 +946,10 @@ namespace MockWebApi.UnitTests
             Assert.True(non_us.Address.Validate());
         }
 
+        /// <summary>
+        /// Test that invalid postal code formats fail.
+        /// </summary>
+        /// <param name="zip"></param>
         [Theory]
         [Trait("Type", "TruePositive")]
         [InlineData("5555")]
