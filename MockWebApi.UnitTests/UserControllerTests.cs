@@ -62,7 +62,7 @@ namespace MockWebApi.UnitTests
         }
 
         [Fact]
-        public async void TestGet()
+        public async void ValidGet_ShouldReturn200_AndList()
         {
             var mockRepo = new Mock<IUserRepository>();
             mockRepo.Setup(x => x.Get()).Returns(users);
@@ -79,6 +79,21 @@ namespace MockWebApi.UnitTests
             enumerator.MoveNext();
             Assert.Equal("Sophie", enumerator.Current.Name.First);
             enumerator.Dispose();
+        }
+
+        [Fact]
+        public async void InvalidGet_ShouldReturn500()
+        {
+            var mockRepo = new Mock<IUserRepository>();
+            // Make user list invalid
+            users[0].Name = null;
+            mockRepo.Setup(x => x.Get()).Returns(users);
+
+            UsersController c = new UsersController(mockRepo.Object);
+
+            StatusCodeResult result = (StatusCodeResult) await c.Get();
+
+            Assert.Equal(500, result.StatusCode);
         }
     }
 }
